@@ -1,9 +1,10 @@
-var gulp         = require("gulp")
-    sass         = require("gulp-sass")
-    autoprefixer = require("gulp-autoprefixer")
-    sassGlob     = require('gulp-sass-glob')
-    hash         = require("gulp-hash")
-    del          = require("del")
+var gulp            = require("gulp")
+    sass            = require("gulp-sass")
+    autoprefixer    = require("gulp-autoprefixer")
+    sassGlob        = require('gulp-sass-glob')
+    hash            = require("gulp-hash")
+    del             = require("del")
+    nunjucksRender  = require("gulp-nunjucks-render")
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -41,12 +42,27 @@ var gulp         = require("gulp")
 
     // Copy stuff for patterns
     gulp.task("copy", function() {
-      del(["patterns/elements/**/*"])
+      del(["patterns/components/**/*"])
       del(["patterns/theme/css/**/*"])
       gulp.src("app/themes/judy/layouts/partials/components/**/*")
         .pipe(gulp.dest("patterns/components"))
       gulp.src("app/static/css/**/*")
           .pipe(gulp.dest("patterns/theme/css"))
+    })
+
+    // Patterns templates
+    gulp.task("render", function () {
+      gulp.src("patterns/templates/*.html")
+        .pipe(nunjucksRender({
+          path: ["patterns/templates/"]
+        }))
+        .pipe(gulp.dest("patterns/public"));
+    })
+
+    // Patterns assets
+    gulp.task("assets", function() {
+      gulp.src("patterns/theme/css/style.css")
+        .pipe(gulp.dest("patterns/public/css"))
     })
 
     // --------------------------
@@ -57,4 +73,7 @@ var gulp         = require("gulp")
     gulp.task("default", ["watch"])
 
     // Copy stuff to patterns
-    gulp.task("patterns", ["copy"])
+    gulp.task("-pc", ["copy"])
+    gulp.task("-pr", ["render"])
+    gulp.task("-pa", ["assets"])
+    gulp.task("patterns", ["copy", "render", "assets"])
