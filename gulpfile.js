@@ -1,10 +1,9 @@
-var gulp         = require("gulp"),
-    sass         = require("gulp-sass"),
+var gulp         = require("gulp")
+    sass         = require("gulp-sass")
     autoprefixer = require("gulp-autoprefixer")
-    sassGlob     = require('gulp-sass-glob');
-    hash         = require("gulp-hash"),
+    sassGlob     = require('gulp-sass-glob')
+    hash         = require("gulp-hash")
     del          = require("del")
-    indent       = require("gulp-indent");
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -40,16 +39,6 @@ var gulp         = require("gulp"),
         gulp.watch("app/themes/judy/static/js/**/*", ["js"])
     })
 
-    // indent
-    gulp.task("indent", function() {
-      gulp.src("app/themes/judy/static/css/**/*")
-        .pipe(indent({
-            tabs:true,
-            amount:2
-        }))
-        .pipe(gulp.dest("app/themes/judy/static/css/**/*"));
-    })
-
     // Copy stuff for patterns
     gulp.task("copy", function() {
       del(["patterns/elements/**/*"])
@@ -66,9 +55,6 @@ var gulp         = require("gulp"),
 
     // Default (watch)
     gulp.task("default", ["watch"])
-
-    // Indent stuff
-    gulp.task("indent", ["indent"])
 
     // Copy stuff to patterns
     gulp.task("patterns", ["copy"])
