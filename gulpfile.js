@@ -15,6 +15,7 @@ var gulp            = require("gulp")
           .pipe(autoprefixer({browsers : ["last 6 versions"]}))
           .pipe(gulp.dest("app/static/css"))
 
+          // Cache busted CSS
           .pipe(sass({outputStyle : "compressed"}))
           .pipe(hash())
           .pipe(gulp.dest("app/static/css"))
@@ -28,10 +29,10 @@ var gulp            = require("gulp")
     gulp.task("js", function () {
         del(["app/static/js/**/*"])
         gulp.src("app/themes/judy/static/js/**/*")
-            .pipe(hash())
-            .pipe(gulp.dest("static/js"))
-            .pipe(hash.manifest("hash.json"))
-            .pipe(gulp.dest("app/data/js"))
+          .pipe(hash())
+          .pipe(gulp.dest("static/js"))
+          .pipe(hash.manifest("hash.json"))
+          .pipe(gulp.dest("app/data/js"))
     })
 
     // Watch asset folder for changes
@@ -42,12 +43,14 @@ var gulp            = require("gulp")
 
     // Copy stuff for patterns
     gulp.task("copy", function() {
-      del(["patterns/components/**/*"])
-      del(["patterns/theme/css/**/*"])
+      //del(["patterns/components/**/*"])
+      //del(["patterns/theme/css/**/*"])
       gulp.src("app/themes/judy/layouts/partials/components/**/*")
         .pipe(gulp.dest("patterns/components"))
-      gulp.src("app/static/css/**/*")
-          .pipe(gulp.dest("patterns/theme/css"))
+      gulp.src("app/static/css/style.css")
+        .pipe(gulp.dest("patterns/theme/css"))
+      gulp.src("app/static/js/**/*")
+          .pipe(gulp.dest("patterns/theme/js"))
     })
 
     // Patterns templates
@@ -61,8 +64,12 @@ var gulp            = require("gulp")
 
     // Patterns assets
     gulp.task("assets", function() {
-      gulp.src("patterns/theme/css/style.css")
+      gulp.src("patterns/theme/css/**/*")
         .pipe(gulp.dest("patterns/public/css"))
+      gulp.src("patterns/theme/js/**/*")
+        .pipe(gulp.dest("patterns/public/js"))
+      gulp.src("patterns/components/**/*")
+        .pipe(gulp.dest("patterns/public/components"))
     })
 
     // --------------------------
