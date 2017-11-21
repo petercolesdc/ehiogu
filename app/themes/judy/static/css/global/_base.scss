@@ -6,7 +6,7 @@
 }
 
 html {
-  padding: 3em;
+  padding: 44em;
   @include sharp-text;
   font-size: $remRoot + px;
   @media (max-width: $vpDeviceSafe) {

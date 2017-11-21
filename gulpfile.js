@@ -35,41 +35,34 @@ var gulp            = require("gulp")
           .pipe(gulp.dest("app/data/js"))
     })
 
+    // Copy style layer into public patterns
+    gulp.task("copy", function () {
+      del(["patterns/public/components/**/*"])
+      del(["patterns/public/css/**/*"])
+      del(["patterns/public/js/**/*"])
+      gulp.src("app/themes/judy/layouts/partials/components/**/*")
+        .pipe(gulp.dest("patterns/public/components"))
+      gulp.src("app/static/css/style.css")
+        .pipe(gulp.dest("patterns/public/css"))
+      gulp.src("app/static/js/**/*")
+          .pipe(gulp.dest("patterns/public/js"))
+    })
+
+    // Render patterns templates
+    gulp.task("render", function () {
+      del(["patterns/public/templates/*.html"])
+      del(["patterns/public/theme/*.css"])
+      gulp.src("patterns/templates/*.html")
+        .pipe(nunjucksRender({path: ["patterns/templates/"]}))
+        .pipe(gulp.dest("patterns/public"))
+      gulp.src("patterns/theme/ui.css")
+        .pipe(gulp.dest("patterns/public/theme"))
+    })
+
     // Watch asset folder for changes
     gulp.task("watch", ["scss", "js"], function () {
         gulp.watch("app/themes/judy/static/css/**/*", ["scss"])
         gulp.watch("app/themes/judy/static/js/**/*", ["js"])
-    })
-
-    // Copy stuff for patterns
-    gulp.task("copy", function() {
-      //del(["patterns/components/**/*"])
-      //del(["patterns/theme/css/**/*"])
-      gulp.src("app/themes/judy/layouts/partials/components/**/*")
-        .pipe(gulp.dest("patterns/components"))
-      gulp.src("app/static/css/style.css")
-        .pipe(gulp.dest("patterns/theme/css"))
-      gulp.src("app/static/js/**/*")
-          .pipe(gulp.dest("patterns/theme/js"))
-    })
-
-    // Patterns templates
-    gulp.task("render", function () {
-      gulp.src("patterns/templates/*.html")
-        .pipe(nunjucksRender({
-          path: ["patterns/templates/"]
-        }))
-        .pipe(gulp.dest("patterns/public"));
-    })
-
-    // Patterns assets
-    gulp.task("assets", function() {
-      gulp.src("patterns/theme/css/**/*")
-        .pipe(gulp.dest("patterns/public/css"))
-      gulp.src("patterns/theme/js/**/*")
-        .pipe(gulp.dest("patterns/public/js"))
-      gulp.src("patterns/components/**/*")
-        .pipe(gulp.dest("patterns/public/components"))
     })
 
     // --------------------------
@@ -79,8 +72,5 @@ var gulp            = require("gulp")
     // Default (watch)
     gulp.task("default", ["watch"])
 
-    // Copy stuff to patterns
-    gulp.task("-pc", ["copy"])
-    gulp.task("-pr", ["render"])
-    gulp.task("-pa", ["assets"])
-    gulp.task("patterns", ["copy", "render", "assets"])
+    // Patterns
+    gulp.task("patterns", ["copy", "render"])
