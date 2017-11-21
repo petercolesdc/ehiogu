@@ -19,8 +19,10 @@ var gulp            = require("gulp")
           .pipe(sass({outputStyle : "compressed"}))
           .pipe(hash())
           .pipe(gulp.dest("app/static/css"))
+
           //Create a hash map
           .pipe(hash.manifest("hash.json"))
+
           //Put the map in the data directory
           .pipe(gulp.dest("app/data/css"))
     })
@@ -37,11 +39,11 @@ var gulp            = require("gulp")
 
     // Copy style layer into public patterns
     gulp.task("copy", function () {
-      del(["patterns/public/components/**/*"])
+      del(["patterns/templates/components/**/*"])
       del(["patterns/public/css/**/*"])
       del(["patterns/public/js/**/*"])
       gulp.src("app/themes/judy/layouts/partials/components/**/*")
-        .pipe(gulp.dest("patterns/public/components"))
+        .pipe(gulp.dest("patterns/templates/components"))
       gulp.src("app/static/css/style.css")
         .pipe(gulp.dest("patterns/public/css"))
       gulp.src("app/static/js/**/*")
@@ -73,4 +75,5 @@ var gulp            = require("gulp")
     gulp.task("default", ["watch"])
 
     // Patterns
-    gulp.task("patterns", ["copy", "render"])
+    gulp.task("pc", ["copy"])
+    gulp.task("pr", ["render"])
