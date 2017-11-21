@@ -5,16 +5,15 @@ var gulp         = require("gulp"),
     hash         = require("gulp-hash"),
     del          = require("del")
 
-
-
+    // Concat CSS
     gulp.task("scss", function () {
         del(["app/static/css/**/*"])
         gulp.src("app/themes/judy/static/css/**/*.scss")
           .pipe(sassGlob())
           .pipe(sass({outputStyle : "expanded"}))
-          .pipe(autoprefixer({browsers : ["last 20 versions"]}))
+          .pipe(autoprefixer({browsers : ["last 6 versions"]}))
           .pipe(gulp.dest("app/static/css"))
-          
+
           .pipe(sass({outputStyle : "compressed"}))
           .pipe(hash())
           .pipe(gulp.dest("app/static/css"))
@@ -24,7 +23,7 @@ var gulp         = require("gulp"),
           .pipe(gulp.dest("app/data/css"))
     })
 
-    // Hash javascript
+    // Concat javascript
     gulp.task("js", function () {
         del(["app/static/js/**/*"])
         gulp.src("app/themes/judy/static/js/**/*")
