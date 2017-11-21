@@ -4,6 +4,7 @@ var gulp         = require("gulp"),
     sassGlob     = require('gulp-sass-glob');
     hash         = require("gulp-hash"),
     del          = require("del")
+    indent       = require("gulp-indent");
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -39,6 +40,16 @@ var gulp         = require("gulp"),
         gulp.watch("app/themes/judy/static/js/**/*", ["js"])
     })
 
+    // indent
+    gulp.task("indent", function() {
+      gulp.src("./src/*.ext")
+        .pipe(indent({
+            tabs:true,
+            amount:2
+        }))
+        .pipe(gulp.dest("app/themes/judy/static/css/**/*"));
+    })
+
     // Copy stuff for patterns
     gulp.task("copy", function() {
       del(["patterns/elements/**/*"])
@@ -55,6 +66,9 @@ var gulp         = require("gulp"),
 
     // Default (watch)
     gulp.task("default", ["watch"])
+
+    // Indent stuff
+    gulp.task("indent", ["indent"])
 
     // Copy stuff to patterns
     gulp.task("patterns", ["copy"])
