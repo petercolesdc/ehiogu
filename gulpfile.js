@@ -42,7 +42,7 @@ var gulp         = require("gulp"),
 
     // indent
     gulp.task("indent", function() {
-      gulp.src("./src/*.ext")
+      gulp.src("app/themes/judy/static/css/**/*")
         .pipe(indent({
             tabs:true,
             amount:2
