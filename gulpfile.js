@@ -5,6 +5,8 @@ var gulp            = require("gulp")
     hash            = require("gulp-hash")
     del             = require("del")
     nunjucksRender  = require("gulp-nunjucks-render")
+    fs              = require("fs")
+    runSequence     = require("run-sequence")
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -39,9 +41,9 @@ var gulp            = require("gulp")
 
     // Copy style layer into public patterns
     gulp.task("copy", function () {
-      del(["patterns/templates/components/**/*"])
-      del(["patterns/public/css/**/*"])
-      del(["patterns/public/js/**/*"])
+      //del(["patterns/templates/components/**/*"])
+      //del(["patterns/public/css/**/*"])
+      //del(["patterns/public/js/**/*"])
       gulp.src("app/themes/judy/layouts/partials/components/**/*")
         .pipe(gulp.dest("patterns/templates/components"))
       gulp.src("app/static/css/style.css")
@@ -52,10 +54,10 @@ var gulp            = require("gulp")
 
     // Render patterns templates
     gulp.task("render", function () {
-      del(["patterns/public/templates/*.html"])
-      del(["patterns/public/theme/*.css"])
+      //del(["patterns/public/theme/*.css"])
+      //del(["patterns/public/templates/views/*.html"])
       gulp.src("patterns/templates/*.html")
-        .pipe(nunjucksRender({path: ["patterns/templates/"]}))
+        .pipe(nunjucksRender({path: ["patterns/templates"]}))
         .pipe(gulp.dest("patterns/public"))
       gulp.src("patterns/theme/ui.css")
         .pipe(gulp.dest("patterns/public/theme"))
@@ -73,7 +75,3 @@ var gulp            = require("gulp")
 
     // Default (watch)
     gulp.task("default", ["watch"])
-
-    // Patterns
-    gulp.task("pc", ["copy"])
-    gulp.task("pr", ["render"])
