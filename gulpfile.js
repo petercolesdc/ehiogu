@@ -103,6 +103,6 @@ var gulp            = require("gulp")
 
     // Default (watch HUGO)
     gulp.task("default", ["watch"])
-    
+
     // Serve up patterns
     gulp.task("patterns", ["browser-sync", "watch-render"])

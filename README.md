@@ -19,3 +19,8 @@ To get started you need to install:
 
 1. At root run 'gulp'
 2. In app run 'hugo server'
+
+## Running Patterns
+
+1. At root run the 'gulp copy' command to pull across assets from HUGO
+2. Run 'gulp patterns' to deliver pattern library
