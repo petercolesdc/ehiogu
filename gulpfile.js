@@ -7,7 +7,7 @@ var gulp            = require("gulp")
     nunjucksRender  = require("gulp-nunjucks-render")
     fs              = require("fs")
     runSequence     = require("run-sequence")
-    var browserSync = require("browser-sync").create();
+    browserSync     = require("browser-sync").create();
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -40,10 +40,18 @@ var gulp            = require("gulp")
           .pipe(gulp.dest("app/data/js"))
     })
 
+    // Assets
+    gulp.task("assets", function () {
+        del(["app/static/assets/**/*"])
+        gulp.src("app/themes/judy/static/assets/**/*")
+          .pipe(gulp.dest("app/static/assets"))
+    })
+
     // Watch asset folder for changes
-    gulp.task("watch", ["scss", "js"], function () {
+    gulp.task("watch", ["scss", "js", "assets"], function () {
         gulp.watch("app/themes/judy/static/css/**/*", ["scss"])
         gulp.watch("app/themes/judy/static/js/**/*", ["js"])
+        gulp.watch("app/themes/judy/static/assets/**/*", ["assets"])
     })
 
     // -----------------------------
@@ -52,15 +60,14 @@ var gulp            = require("gulp")
 
     // Copy style layer into public patterns
     gulp.task("copy", function () {
-      //del(["patterns/templates/components/**/*"])
-      //del(["patterns/public/css/**/*"])
-      //del(["patterns/public/js/**/*"])
       gulp.src("app/themes/judy/layouts/partials/components/**/*")
         .pipe(gulp.dest("patterns/templates/components"))
       gulp.src("app/static/css/style.css")
         .pipe(gulp.dest("patterns/public/css"))
       gulp.src("app/static/js/**/*")
-          .pipe(gulp.dest("patterns/public/js"))
+        .pipe(gulp.dest("patterns/public/js"))
+      gulp.src("app/static/assets/**/*")
+        .pipe(gulp.dest("patterns/public/assets"))
     })
 
     // Render patterns templates
@@ -70,10 +77,10 @@ var gulp            = require("gulp")
           path: ["patterns/templates"]
         }))
         .pipe(gulp.dest("patterns/public"))
-      gulp.src("patterns/theme/ui.css")
+      gulp.src("patterns/theme/**/*")
         .pipe(gulp.dest("patterns/public/theme"))
     })
-
+    // and watch for changes
     gulp.task("watch-render", ["render"], function () {
         gulp.watch("patterns/theme/ui.css", ["render"])
         gulp.watch("patterns/templates/**/*", ["render"])
@@ -86,7 +93,6 @@ var gulp            = require("gulp")
         browserSync.init({
             server: {
                 baseDir: "patterns/public",
-                //files: ["patterns/public/theme/ui.css", "patterns/public/css/style.css"]
             }
         });
     });
@@ -97,4 +103,6 @@ var gulp            = require("gulp")
 
     // Default (watch HUGO)
     gulp.task("default", ["watch"])
-    gulp.task("patterns-serve", ["watch-render"])
+    
+    // Serve up patterns
+    gulp.task("patterns", ["browser-sync", "watch-render"])
