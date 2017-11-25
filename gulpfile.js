@@ -7,6 +7,7 @@ var gulp            = require("gulp")
     nunjucksRender  = require("gulp-nunjucks-render")
     fs              = require("fs")
     runSequence     = require("run-sequence")
+    var browserSync = require("browser-sync").create();
 
     // Concat CSS
     gulp.task("scss", function () {
@@ -39,6 +40,16 @@ var gulp            = require("gulp")
           .pipe(gulp.dest("app/data/js"))
     })
 
+    // Watch asset folder for changes
+    gulp.task("watch", ["scss", "js"], function () {
+        gulp.watch("app/themes/judy/static/css/**/*", ["scss"])
+        gulp.watch("app/themes/judy/static/js/**/*", ["js"])
+    })
+
+    // -----------------------------
+    // Patterns tasks
+    // -----------------------------
+
     // Copy style layer into public patterns
     gulp.task("copy", function () {
       //del(["patterns/templates/components/**/*"])
@@ -54,24 +65,36 @@ var gulp            = require("gulp")
 
     // Render patterns templates
     gulp.task("render", function () {
-      //del(["patterns/public/theme/*.css"])
-      //del(["patterns/public/templates/views/*.html"])
       gulp.src("patterns/templates/*.html")
-        .pipe(nunjucksRender({path: ["patterns/templates"]}))
+        .pipe(nunjucksRender({
+          path: ["patterns/templates"]
+        }))
         .pipe(gulp.dest("patterns/public"))
       gulp.src("patterns/theme/ui.css")
         .pipe(gulp.dest("patterns/public/theme"))
     })
 
-    // Watch asset folder for changes
-    gulp.task("watch", ["scss", "js"], function () {
-        gulp.watch("app/themes/judy/static/css/**/*", ["scss"])
-        gulp.watch("app/themes/judy/static/js/**/*", ["js"])
+    gulp.task("watch-render", ["render"], function () {
+        gulp.watch("patterns/theme/ui.css", ["render"])
+        gulp.watch("patterns/templates/**/*", ["render"])
     })
 
+    // -----------------------------
+
+    // Patterns server
+    gulp.task('browser-sync', function() {
+        browserSync.init({
+            server: {
+                baseDir: "patterns/public",
+                //files: ["patterns/public/theme/ui.css", "patterns/public/css/style.css"]
+            }
+        });
+    });
+
     // --------------------------
-    // Task runners
+    // Task runners syntax
     // --------------------------
 
-    // Default (watch)
+    // Default (watch HUGO)
     gulp.task("default", ["watch"])
+    gulp.task("patterns-serve", ["watch-render"])
