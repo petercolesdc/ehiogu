@@ -11,24 +11,18 @@ To get started you need to install:
 
 ## Hugo first install
 
-1. Move the content of app to a sub-folder for now
-2. Follow the hugo quickstart guide, installing hugo into a sub-folder off 'app'
-3. Move content from your sub-folder into 'app', allowing OS to overwrite
+1. Move the content of /app to a sub-folder for now
+2. Follow the hugo quickstart guide, installing hugo into a folder called 'app'
+3. Move the content from your sub-folder into the 'app' folder, allowing overwriting on replaced files
 
 ## Run Hugo website
 
-1. In /app run 'hugo server'
-2. At root run 'gulp'
-
-## Updating Patterns
-
-When you want to make an update to patterns from Hugo you must:
-
-1. Delete Hugo's Public folder (TODO: Gulp runner)
-2. In /app run 'hugo'. This re-builds the public folder
-3. In root run 'gulp copy'. This copies all components and static assets into the patterns directory
+1. In root run 'gulp hugo'. This starts up the Hugo website and watches the theme for changes
 
 ## Running Patterns
 
-1. At root run the 'gulp copy' command to pull across assets from HUGO
-2. Run 'gulp patterns' to deliver pattern library
+Pattern copies core elements from the Hugo site and generates a style guide. To do this, run the following.
+
+1. In root, run 'gulp build'. This builds all the needed files for patterns
+2. In another tab, in root run 'gulp patterns'. This starts the pattern library server
+3. At any point, run 'gulp build' in a separate tab to update patterns to the latest version  
