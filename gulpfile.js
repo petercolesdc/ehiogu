@@ -36,14 +36,13 @@ var gulp            = require("gulp")
         del(["app/static/js/**/*"])
         gulp.src("app/themes/judy/static/js/**/*")
           .pipe(hash())
-          .pipe(gulp.dest("static/js"))
+          .pipe(gulp.dest("appp/static/js"))
           .pipe(hash.manifest("hash.json"))
           .pipe(gulp.dest("app/data/js"))
     })
 
     // Assets copy
     gulp.task("assets", function () {
-        del(["app/static/assets/**/*"])
         gulp.src("app/themes/judy/static/assets/**/*")
           .pipe(gulp.dest("app/static/assets"))
     })
@@ -59,32 +58,24 @@ var gulp            = require("gulp")
     // Patterns tasks
     // -----------------------------
 
-    // Delete public folder
+    // Delete everything prior to rebuilding
     gulp.task("delete", function() {
-      del(["app/public/"])
+       del(["app/public/"])
+       del(["app/static/assets/"])
+       del(["patterns/components/"])
+       del(["patterns/assets/"])
     })
 
-    // Run Hugo to copy finished files over to public folder
-    gulp.task('hugo', function (fetch) {
-        return exec('hugo -s app', function (err, stdout, stderr) {
-            // console.log(stdout); // See Hugo output
-            // console.log(stderr); // Debugging feedback
-            fetch(err);
-        });
-    })
-
-    // Copy style layer into public patterns
+    // Copy what we need into patterns
     gulp.task("copy", function () {
-      del(["patterns/components/**/*"])
-      del(["patterns/assets/**/*"])
-      gulp.src("app/public/components/**/*")
-        .pipe(gulp.dest("patterns/templates/components"))
-      gulp.src("app/public/css/style.css")
-        .pipe(gulp.dest("patterns/public/css"))
-      gulp.src("app/public/js/**/*")
-        .pipe(gulp.dest("patterns/public/js"))
-      gulp.src("app/public/assets/**/*")
-        .pipe(gulp.dest("patterns/assets/"))
+        gulp.src("app/public/components/**/*")
+          .pipe(gulp.dest("patterns/templates/components"))
+        gulp.src("app/public/css/style.css")
+          .pipe(gulp.dest("patterns/public/css"))
+        gulp.src("app/public/js/**/*")
+          .pipe(gulp.dest("patterns/public/js"))
+        gulp.src("app/public/assets/**/*")
+          .pipe(gulp.dest("patterns/assets/"))
     })
 
     // Render patterns templates
@@ -99,15 +90,14 @@ var gulp            = require("gulp")
       gulp.src("patterns/assets/**/*")
           .pipe(gulp.dest("patterns/public/assets"))
     })
-    // and watch for changes
+
+    // ...and watch for changes
     gulp.task("watch-render", ["render"], function () {
         gulp.watch("patterns/theme/ui.css", ["render"])
         gulp.watch("patterns/templates/**/*", ["render"])
     })
 
-    // -----------------------------
-
-    // Patterns server
+    // Spin up patterns server
     gulp.task('browser-sync', function() {
         browserSync.init({
             server: {
@@ -117,14 +107,54 @@ var gulp            = require("gulp")
     });
 
     // --------------------------
+    // Hugo runners
+    // --------------------------
+
+    // Start Hugo
+    gulp.task('hugo-watch', function (fetch) {
+        return exec('hugo server -v -s app', function (err, stdout, stderr) {
+            // console.log(stdout); // See Hugo output
+            // console.log(stderr); // Debugging feedback
+            fetch(err);
+        });
+    })
+
+    // Run Hugo to copy finished files over to public folder
+    gulp.task('hugo-static', function (fetch) {
+        return exec('hugo -s app', function (err, stdout, stderr) {
+            // console.log(stdout); // See Hugo output
+            // console.log(stderr); // Debugging feedback
+            fetch(err);
+        });
+    })
+
+    // --------------------------
     // Task runners syntax
     // --------------------------
 
-    // Default (watch HUGO)
-    gulp.task("default", ["watch"])
+    // Default spins up Hugo and watches
+    //gulp.task("default", ["hugo-watch", "watch"])
 
-    // Delete public and render new hugo files
-    gulp.task("render", ["delete", "hugo"])
+    // Hugo syntax
+    gulp.task('hugo', function(callback) {
+      runSequence('assets', ['hugo-watch', 'watch'], callback);
+    });
+
+
+    // Re-build patterns
+    gulp.task('build', function(callback) {
+      runSequence('delete', 'hugo-static', 'copy', 'assets', callback);
+    });
 
     // Serve up patterns
     gulp.task("patterns", ["browser-sync", "watch-render"])
+
+
+    // Callback (not totally sure what this does TBH)
+    gulp.task('callback', function(callback) {
+        // Use the callback in the async function
+        fs.readFile('...', function(err, file) {
+            console.log(file);
+            callback();
+        });
+    });
