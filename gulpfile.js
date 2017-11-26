@@ -7,6 +7,7 @@ var gulp            = require("gulp")
     nunjucksRender  = require("gulp-nunjucks-render")
     fs              = require("fs")
     runSequence     = require("run-sequence")
+    exec            = require("child_process").exec;
     browserSync     = require("browser-sync").create();
 
     // Concat and copy CSS
@@ -58,6 +59,20 @@ var gulp            = require("gulp")
     // Patterns tasks
     // -----------------------------
 
+    // Delete public folder
+    gulp.task("delete", function() {
+      del(["app/public/"])
+    })
+
+    // Run Hugo to copy finished files over to public folder
+    gulp.task('hugo', function (fetch) {
+        return exec('hugo -s app', function (err, stdout, stderr) {
+            // console.log(stdout); // See Hugo output
+            // console.log(stderr); // Debugging feedback
+            fetch(err);
+        });
+    })
+
     // Copy style layer into public patterns
     gulp.task("copy", function () {
       del(["patterns/components/**/*"])
@@ -69,7 +84,7 @@ var gulp            = require("gulp")
       gulp.src("app/public/js/**/*")
         .pipe(gulp.dest("patterns/public/js"))
       gulp.src("app/public/assets/**/*")
-        .pipe(gulp.dest("patterns/assets"))
+        .pipe(gulp.dest("patterns/assets/"))
     })
 
     // Render patterns templates
@@ -107,6 +122,9 @@ var gulp            = require("gulp")
 
     // Default (watch HUGO)
     gulp.task("default", ["watch"])
+
+    // Delete public and render new hugo files
+    gulp.task("render", ["delete", "hugo"])
 
     // Serve up patterns
     gulp.task("patterns", ["browser-sync", "watch-render"])
