@@ -9,7 +9,7 @@ var gulp            = require("gulp")
     runSequence     = require("run-sequence")
     browserSync     = require("browser-sync").create();
 
-    // Concat CSS
+    // Concat and copy CSS
     gulp.task("scss", function () {
         del(["app/static/css/**/*"])
         gulp.src("app/themes/judy/static/css/**/*.scss")
@@ -30,7 +30,7 @@ var gulp            = require("gulp")
           .pipe(gulp.dest("app/data/css"))
     })
 
-    // Concat javascript
+    // Concat and copy javascript
     gulp.task("js", function () {
         del(["app/static/js/**/*"])
         gulp.src("app/themes/judy/static/js/**/*")
@@ -40,7 +40,7 @@ var gulp            = require("gulp")
           .pipe(gulp.dest("app/data/js"))
     })
 
-    // Assets
+    // Assets copy
     gulp.task("assets", function () {
         del(["app/static/assets/**/*"])
         gulp.src("app/themes/judy/static/assets/**/*")
