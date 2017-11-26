@@ -64,6 +64,7 @@ var gulp            = require("gulp")
        del(["app/static/assets/"])
        del(["patterns/components/"])
        del(["patterns/assets/"])
+       del(["patterns/public/assets/"])
     })
 
     // Copy what we need into patterns
@@ -140,7 +141,6 @@ var gulp            = require("gulp")
       runSequence('assets', ['hugo-watch', 'watch'], callback);
     });
 
-
     // Re-build patterns
     gulp.task('build', function(callback) {
       runSequence('delete', 'hugo-static', 'copy', 'assets', callback);
@@ -148,7 +148,6 @@ var gulp            = require("gulp")
 
     // Serve up patterns
     gulp.task("patterns", ["browser-sync", "watch-render"])
-
 
     // Callback (not totally sure what this does TBH)
     gulp.task('callback', function(callback) {
