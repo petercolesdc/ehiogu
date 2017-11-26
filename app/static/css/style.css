@@ -642,7 +642,7 @@ svg {
 }
 
 html {
-  padding: 10em;
+  padding: 1.5em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 10px;

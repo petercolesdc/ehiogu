@@ -114,8 +114,8 @@ var gulp            = require("gulp")
     // Start Hugo
     gulp.task('hugo-watch', function (fetch) {
         return exec('hugo server -v -s app', function (err, stdout, stderr) {
-            // console.log(stdout); // See Hugo output
-            // console.log(stderr); // Debugging feedback
+            console.log(stdout); // See Hugo output
+            console.log(stderr); // Debugging feedback
             fetch(err);
         });
     })
@@ -135,6 +135,9 @@ var gulp            = require("gulp")
 
     // Default spins up Hugo and watches
     //gulp.task("default", ["hugo-watch", "watch"])
+
+    // Just watch assets (if you're running Hugo from /app using normal commands)
+    gulp.task("watch", ["watch"])
 
     // Hugo syntax
     gulp.task('hugo', function(callback) {

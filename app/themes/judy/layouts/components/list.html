@@ -1,1 +1,15 @@
-Not allowed
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ .Site.BaseURL }}css/{{ index .Site.Data.css.hash "style.css" }}" />
+    <title>Components</title>
+  </head>
+  <body>
+    <ul>
+      {{ range .Data.Pages }}
+        <li><a href="{{.Permalink}}">{{.Title}}</a></li>
+      {{ end }}
+    </ul>
+  </body>
+</html>

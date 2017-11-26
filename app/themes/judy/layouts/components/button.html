@@ -1,3 +1,7 @@
 {{ define "main" -}}
   {{ partial "components/button.html" (dict "label" .Params.label "role" .Params.role "style" .Params.style) }}
+  <code>
+    {{ partial "components/button.html" (dict "label" .Params.label "role" .Params.role "style" .Params.style) | htmlUnescape }}
+  </code>
+  {{ .Content }}
 {{ end }}

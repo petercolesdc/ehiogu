@@ -11,21 +11,21 @@
     
     
     <item>
-      <title></title>
-      <link>/components/button-secondary/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/components/button-secondary/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title></title>
+      <title>Button</title>
       <link>/components/button/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/components/button/</guid>
-      <description></description>
+      <description>This button is for this use</description>
+    </item>
+    
+    <item>
+      <title>Button 2</title>
+      <link>/components/button-secondary/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/components/button-secondary/</guid>
+      <description>This button is for this use</description>
     </item>
     
   </channel>
