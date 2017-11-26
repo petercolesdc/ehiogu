@@ -60,14 +60,16 @@ var gulp            = require("gulp")
 
     // Copy style layer into public patterns
     gulp.task("copy", function () {
-      gulp.src("app/themes/judy/layouts/partials/components/**/*")
+      del(["patterns/components/**/*"])
+      del(["patterns/assets/**/*"])
+      gulp.src("app/public/components/**/*")
         .pipe(gulp.dest("patterns/templates/components"))
-      gulp.src("app/static/css/style.css")
+      gulp.src("app/public/css/style.css")
         .pipe(gulp.dest("patterns/public/css"))
-      gulp.src("app/static/js/**/*")
+      gulp.src("app/public/js/**/*")
         .pipe(gulp.dest("patterns/public/js"))
-      gulp.src("app/static/assets/**/*")
-        .pipe(gulp.dest("patterns/public/assets"))
+      gulp.src("app/public/assets/**/*")
+        .pipe(gulp.dest("patterns/assets"))
     })
 
     // Render patterns templates
@@ -79,6 +81,8 @@ var gulp            = require("gulp")
         .pipe(gulp.dest("patterns/public"))
       gulp.src("patterns/theme/**/*")
         .pipe(gulp.dest("patterns/public/theme"))
+      gulp.src("patterns/assets/**/*")
+          .pipe(gulp.dest("patterns/public/assets"))
     })
     // and watch for changes
     gulp.task("watch-render", ["render"], function () {
