@@ -7,5 +7,6 @@
   <h2 class="typeL typeL_trailer heading">{{ .Params.sub }}</h2>
   <div class="typebase markdown">
     {{.Content}}
+    {{ partial "components/button.html" (dict "label" "Button" "style" "button") }}
   </div>
 {{ end }}

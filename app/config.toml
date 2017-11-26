@@ -1,8 +1,13 @@
-baseURL = "http://example.org/"
+baseURL = "/"
 languageCode = "en-uk"
 title = "My New Hugo Site"
 theme = "Judy"
-sectionPagesMenu = "main"
+watch = true
+
+[taxonomies]
+  tag = ""
+  group = ""
+  category = ""
 
 [menu]
     [[menu.main]]
