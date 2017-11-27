@@ -1,6 +1,6 @@
 ---
 draft: false
-Title: "Button 2"
+Title: "Button two"
 layout: "button"
 
 label: "Button sec"

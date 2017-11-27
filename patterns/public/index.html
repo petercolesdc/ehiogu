@@ -1,34 +1,41 @@
 <!DOCTYPE>
 <html>
 <head>
-    <title>Home</title>
+    <title>Datamesh component library</title>
     <link rel="stylesheet" href="/theme/ui.css">
     <link rel="stylesheet" href="/css/style.css">
 </head>
-<body>
+<body class="ui-body">
 
-<h1>Welcome</h1>
-<p>Isn't this just the most exciting website ever?</p>
-<button type="button" class="button">Button</button>
-
-  <code>
-    &lt;button type=&#34;button&#34; class=&#34;button&#34;&gt;Button&lt;/button&gt;
-
-  </code>
-  <p>This button is for this use</p>
-
-
-
-<button type="button" class="button button--secondary">Button sec</button>
-
-  <code>
-    &lt;button type=&#34;button&#34; class=&#34;button button--secondary&#34;&gt;Button sec&lt;/button&gt;
-
-  </code>
-  <p>This button is for this use</p>
+  <section class="ui-section">
+    <article class="ui-article">
+      <h1 class="ui-article__title">Buttons</h1>
+      <div class="ui-article__componentGroup">
+        <div class="ui-component" id="ui-button">
+  <h3 class="ui-component__title">Button</h3>
+  <div class="ui-descriptor"><p>This button is for this use</p>
+</div>
+  <div class="ui-element"><button type="button" class="button">Button</button>
+</div>
+  <pre class="ui-codeblock"><code>&lt;button type=&#34;button&#34; class=&#34;button&#34;&gt;Button&lt;/button&gt;
+</code></pre>
+</div>
 
 
+        <div class="ui-component" id="ui-button-two">
+  <h3 class="ui-component__title">Button two</h3>
+  <div class="ui-descriptor"><p>This button is for this use</p>
+</div>
+  <div class="ui-element"><button type="button" class="button button--secondary">Button sec</button>
+</div>
+  <pre class="ui-codeblock"><code>&lt;button type=&#34;button&#34; class=&#34;button button--secondary&#34;&gt;Button sec&lt;/button&gt;
+</code></pre>
+</div>
 
+
+      </div>
+    </article>
+  </section>
 
 </body>
 </html>

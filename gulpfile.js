@@ -64,7 +64,7 @@ var gulp            = require("gulp")
        del(["app/static/assets/"])
        del(["patterns/components/"])
        del(["patterns/assets/"])
-       del(["patterns/public/assets/"])
+       del(["patterns/public/"])
     })
 
     // Copy what we need into patterns
@@ -105,6 +105,8 @@ var gulp            = require("gulp")
                 baseDir: "patterns/public",
             }
         });
+        //gulp.watch("patterns/theme/ui.css", ['css']);
+        gulp.watch("patterns/public/**/*").on('change', browserSync.reload);
     });
 
     // --------------------------
@@ -114,8 +116,8 @@ var gulp            = require("gulp")
     // Start Hugo
     gulp.task('hugo-watch', function (fetch) {
         return exec('hugo server -v -s app', function (err, stdout, stderr) {
-            console.log(stdout); // See Hugo output
-            console.log(stderr); // Debugging feedback
+            //console.log(stdout); // See Hugo output
+            //console.log(stderr); // Debugging feedback
             fetch(err);
         });
     })
@@ -134,15 +136,12 @@ var gulp            = require("gulp")
     // --------------------------
 
     // Default spins up Hugo and watches
-    //gulp.task("default", ["hugo-watch", "watch"])
+    gulp.task("default", ["watch"])
 
-    // Just watch assets (if you're running Hugo from /app using normal commands)
-    gulp.task("watch", ["watch"])
-
-    // Hugo syntax
-    gulp.task('hugo', function(callback) {
-      runSequence('assets', ['hugo-watch', 'watch'], callback);
-    });
+    // Hugo syntax (not quite. Exceeds call stack)
+    // gulp.task('hugo', function(callback) {
+    //   runSequence('assets', ['hugo-watch', 'watch'], callback);
+    // });
 
     // Re-build patterns
     gulp.task('build', function(callback) {

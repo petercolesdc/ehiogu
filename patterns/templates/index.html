@@ -1,11 +1,14 @@
-
-{% set title = 'Home' %}
-
+{% set title = 'Datamesh component library' %}
 {% extends 'layouts/layout.html' %}
 
 {% block content %}
-<h1>Welcome</h1>
-<p>Isn't this just the most exciting website ever?</p>
-{% include 'components/button/index.html' %}
-{% include 'components/button-secondary/index.html' %}
+  <section class="ui-section">
+    <article class="ui-article">
+      <h1 class="ui-article__title">Buttons</h1>
+      <div class="ui-article__componentGroup">
+        {% include 'components/button/index.html' %}
+        {% include 'components/button-secondary/index.html' %}
+      </div>
+    </article>
+  </section>
 {% endblock %}

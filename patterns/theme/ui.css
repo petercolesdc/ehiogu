@@ -1,3 +1,80 @@
+/* Globals. Need some nasty importants occasionally */
+
 html {
-  background: white;
+  background: white!important;
+  padding: 0!important;
+}
+
+body.ui {
+  height: auto!important;
+  padding: 10px!important;
+}
+
+.ui-section {
+  position: relative;
+}
+
+.ui-article {
+  position: relative;
+}
+
+.ui-article {
+
+}
+
+.ui-article__title {
+  font-size: 32px;
+  line-height: 27px;
+  margin-bottom: 0;
+}
+
+.ui-component__title {
+  font-size: 20px;
+  margin-bottom: 6px;
+  line-height: 27px;
+}
+
+.ui-component {
+  position: relative;
+  margin-top: 60px;
+}
+
+.ui-descriptor {
+  position: relative;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.ui-descriptor p {
+  margin-top: 0;
+}
+
+.ui-element {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.ui-codeblock {
+  display: block;
+  position: relative;
+  padding: 20px 30px;
+  background-color: #f8f6f6;
+  overflow: hidden;
+  margin-bottom: 20px;
+  font-size: 14px;
+  white-space: pre;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overflow: scroll;
+}
+
+.ui-codeblock code {
+  font-family: monospace;
+  font-size: 14px;
+  line-height: 14px;
 }
