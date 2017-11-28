@@ -5,9 +5,9 @@ A playground for developing a pattern library and website using Hugo static site
 ## Installing
 
 To get started you need to install:
-- gulp globally
-- hugo globally
-- run npm-install at root
+- [gulp](https://gulpjs.com/) globally: `$ npm install -g gulp`
+- [hugo](https://github.com/gohugoio/hugo) globally (it's a golang binary)
+- run: `$ npm-install`
 
 ## Hugo first install
 
